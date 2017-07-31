@@ -1,3 +1,9 @@
 body {
-  background-color: white;
+  background-image: url("https://i.ytimg.com/vi/M2uBtg_PzKg/maxresdefault.jpg");
+  background-size: cover no-repeat center;
+}
+
+span {
+  font-size: 20px;
+  color: red;
 }
