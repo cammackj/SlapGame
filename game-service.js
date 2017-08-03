@@ -1,51 +1,96 @@
-function GameService(){
+function GameService() {
 
-var dataStore = this;
+    var target = {
+        characters: [],
+        items: []
+    }
 
-// This is the object data.
-var target = {
-    characters: [],
-    items: []
-}
+    // SHIP DATA
 
-// This constructor function is used to create and push new characters to the target.characters array
+    var ship1 = new Target('USS Enterprise', 100, 1, 5, 10, 'https://upload.wikimedia.org/wikipedia/en/5/54/USS_Enterprise_%28NCC-1701-A%29.jpg')
+    var ship2 = new Target('Bird of Prey', 100, 1, 5, 10, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA5L9iQu3aqufOtnwfTuw9NEZmsfmxI1pIs2Pv4OgymNCDnNtjvQ')
+    target.characters.push(ship1, ship2);
 
-function Target(name, health, hits) {
-    this.name = name;
-    this.health = health;
-    this.hits = hits;
-}
+    // MOD DATA
 
-var ship1 = new Target('USS Enterprise', 100, 0)
-var ship2 = new Target('Bird of Prey', 100, 0)
+    var item1 = new Item('Shield', .2, .3, .5)
+    // var item2 = new Item('Evasive maneuvers', .2, .3, .5)
+    // var item3 = new Item("Scotty!!!", .2, .3, .5)
+    target.items.push(item1);
 
-target.characters.push(ship1, ship2);
+    // This constructor function is used to create new characters
+    var id = 1
+    function Target(name, health, slap, punch, kick, picture) {
+        this.id = id
+        this.name = name;
+        this.health = health;
+        this.attacks = {
+            "slap": slap,
+            "punch": punch,
+            "kick": kick
+        };
+        this.hits = 0;
+        this.picture = picture;
+        id++
+    }
+    // This constructor function is used to create new mod items
 
-// This constructor function is used to create and push new characters to the target.items array
+    function Item(name, shield, evasive, scotty) {
+        this.name = name;
+        this.items = {
+            "shield": shield,
+            "evasive": evasive,
+            "scotty": scotty
+        }
+    }
 
-function Item(name, modifier, description) {
-    this.name = name;
-    this.modifier = modifier;
-    this.description = description;
-}
+    function findAttackType(attack) {
+        var attackType = ship1.attacks;
+        if (attackType.slap == attack) {
+            return attackType.slap
+        }
+        else if (attackType.punch == attack) {
+            return attackType.punch
+        }
+        else if (attackType.kick == attack) {
+            return attackType.kick
+        }
+        else {
+            console.error("No such attack")
+        }
+    }
 
-var shield = new Item('Shield', .2, 'Deflector Shield')
-var phaser = new Item('Evasive maneuvers', .3, 'Evade and Attack')
-var torpedo = new Item("Scotty!!!", .5, "Miracle Worker")
+    function findModType(mod) {
+        var modType = item1.items
 
-target.items.push(shield, phaser, torpedo);
+        if (modType.shield == mod) {
+            return modType.shield
+        }
+        else if (modType.evasive == mod) {
+            return modType.evasive
+        }
+        else if (modType.scotty == mod) {
+            return modType.scotty
+        }
+        else {
+            console.error("No such item")
+        }
+    }
 
-// Function used to update previous function data
-function update() {
-    document.getElementById("name").innerText = target.characters[0].name;
-    document.getElementById("health").innerText = target.characters[0].health;
-    document.getElementById("hits").innerText = target.characters[0].hits;
-}
+    this.attacks = function (attack) {
+        var char = findAttackType(attack)
 
-update();
+        return char
+    }
 
+    this.mods = function (mod) {
+        var mods = findModType(mod)
+        return mods
+    }
 
-
-
-
+    // GET COPIED CHARACTER DATA
+    this.getChar = function () {
+        var targetCopy = JSON.parse(JSON.stringify(target))
+        return targetCopy
+    }
 }
