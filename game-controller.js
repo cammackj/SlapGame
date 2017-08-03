@@ -23,23 +23,18 @@ function GameController() {
     }
 
     //public data
- 
-     // THIS IS THE ATTACK FUNCTION
+
+    // THIS IS THE ATTACK FUNCTION
     this.attack = function (attack) {
-        gameService.attacks(attack); 
-         
-        characters[1].health -= attack * this.giveItem();
-        console.log(characters[1].health)
+        gameService.attacks(attack);
+        characters[1].health -= attack * items;
         characters[1].hits++;
         draw()
     }
+
     this.giveItem = function (mod) {
         gameService.mods(mod);
-        var totalMods = 1 + mod;
-        console.log(totalMods)
-        return totalMods;
+        items = 1 + mod;
     }
-  console.log(giveItem())
-
     draw()
 }

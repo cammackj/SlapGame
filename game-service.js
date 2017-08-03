@@ -14,9 +14,9 @@ function GameService() {
     // MOD DATA
 
     var item1 = new Item('Shield', .2, .3, .5)
-    // var item2 = new Item('Evasive maneuvers', .2, .3, .5)
-    // var item3 = new Item("Scotty!!!", .2, .3, .5)
-    target.items.push(item1);
+    var item2 = new Item('Evasive maneuvers', .2, .3, .5)
+    var item3 = new Item("Scotty!!!", .2, .3, .5)
+    target.items.push(item1, item2, item3);
 
     // This constructor function is used to create new characters
     var id = 1
@@ -64,17 +64,20 @@ function GameService() {
         var modType = item1.items
 
         if (modType.shield == mod) {
-            return modType.shield
+            console.log(modType.shield)
+
         }
         else if (modType.evasive == mod) {
-            return modType.evasive
+            console.log(modType.evasive)
+
         }
         else if (modType.scotty == mod) {
-            return modType.scotty
+            console.log(modType.scotty)
         }
         else {
-            console.error("No such item")
+            return 0
         }
+        // console.error("No such item")
     }
 
     this.attacks = function (attack) {
